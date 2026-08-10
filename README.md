@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/TechQube-logo.png" alt="TechQube Logo" width="420">
+  <img src="docs/assets/TechQube-logo-light-bg.png" alt="TechQube Logo" width="420">
 </p>
 
 <h1 align="center">TechQube HRM</h1>
