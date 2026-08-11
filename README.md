@@ -1,543 +1,217 @@
 <p align="center">
-  <img src="docs/assets/TechQube-logo-light-bg.png" alt="TechQube Logo" width="420">
+  <img src="docs/assets/TechQube-logo-light-bg.png" alt="TechQube Logo" width="520">
 </p>
 
 <h1 align="center">TechQube HRM</h1>
 
 <p align="center">
-  A full-stack Human Resource Management system built as a complete software engineering learning project.
+  <strong>Modern, multi-company Human Resource Management platform</strong>
 </p>
 
 <p align="center">
-  <strong>Planning → Requirements → Design → Development → Testing → Deployment</strong>
+  React · TypeScript · FastAPI · PostgreSQL · Docker
 </p>
 
 ---
 
 ## Overview
 
-**TechQube HRM** is a web-based Human Resource Management system being developed to practice the complete lifecycle of a modern full-stack software project.
+**TechQube HRM** is a web-based Human Resource Management platform designed to centralize and streamline HR operations across one or more companies.
 
-The project is intentionally being built step by step instead of jumping directly into application development.
+The platform is being developed around practical HR workflows including:
 
-The goal is to practice:
+- Employee management
+- Multi-company operations
+- Organization structure
+- Attendance
+- Leave management
+- Multi-level approvals
+- Configurable payroll
+- Recruitment
+- Employee and manager self-service
+- Dashboards and analytics
+- Operational and PDF reporting
+- Role-based access control
+- Auditability
 
-- Software Development Life Cycle (SDLC)
-- Agile development
-- Business requirements analysis
-- Functional requirements analysis
-- Software requirements specification
-- System architecture
-- Database design
-- REST API development
-- Frontend development
-- Authentication and authorization
-- Testing
-- Git and GitHub workflow
-- Docker
-- CI/CD
-- Deployment
-- Maintenance and future improvements
-
-This project will evolve incrementally from documentation and planning into a complete HRM platform.
+The project follows a structured software engineering lifecycle covering requirements analysis, system design, implementation, testing, deployment, and ongoing maintenance.
 
 ---
 
-## Project Goals
+## Product Vision
 
-The primary goals of this project are:
+TechQube HRM aims to provide organizations with a maintainable and extensible HR platform that supports day-to-day HR operations without tightly coupling business rules to application source code.
 
-1. Build a real-world full-stack HRM application.
-2. Improve Python and backend development skills.
-3. Learn FastAPI.
-4. Learn React and TypeScript.
-5. Practice PostgreSQL and relational database design.
-6. Practice REST API design.
-7. Learn frontend-backend integration.
-8. Practice authentication and authorization.
-9. Learn professional Git and GitHub workflows.
-10. Practice Agile and SDLC processes.
-11. Use Docker for local development and deployment.
-12. Implement automated testing.
-13. Learn CI/CD.
-14. Deploy the project to a production-like environment.
+Key design goals include:
 
----
-
-## Learning Philosophy
-
-This project is being built as a learning exercise.
-
-The development process follows these principles:
-
-- Understand the requirement before writing code.
-- Design before implementation.
-- Write code manually whenever possible.
-- Use AI as a reviewer and learning assistant rather than replacing programming practice.
-- Commit changes in logical milestones.
-- Document important technical decisions.
-- Build features in small iterations.
-- Refactor when understanding improves.
+- Multi-company capability
+- Configurable HR policies
+- Secure role-based access
+- Employee self-service
+- Manager approval workflows
+- Configurable payroll rules
+- Clear audit history
+- Operational dashboards
+- Printable business reports
+- Modular architecture
+- API-driven frontend/backend separation
 
 ---
 
-## Planned Technology Stack
+## Core Functional Areas
+
+| Area | Scope |
+|---|---|
+| Multi-Company | Company-specific employees, departments, payroll, leave, attendance and reporting |
+| Employee Management | Employee profiles, employment data, hierarchy, archive/history |
+| Organization | Departments, job positions, line managers and reporting relationships |
+| Employee Self-Service | Profile, attendance, leave, payslips and personal dashboard |
+| Manager Self-Service | Team visibility, attendance review and approvals |
+| Attendance | Web check-in/out, manual entry, worked hours and attendance reporting |
+| Leave | Leave types, allocations, balances, requests and multi-level approvals |
+| Payroll | Salary structures, configurable salary rules, calculations, payslips and payroll reporting |
+| Recruitment | Vacancies, candidates, recruitment stages, interviews and hiring |
+| Reporting | Dashboard KPIs, operational reports and PDF documents |
+| Security | Authentication, roles, permissions, company restrictions and audit controls |
+
+---
+
+## Approval Workflow
+
+The default leave approval process is:
+
+```mermaid
+flowchart LR
+    A[Employee] --> B[Submit Leave Request]
+    B --> C{Line Manager Assigned?}
+
+    C -->|Yes| D[Line Manager Review]
+    C -->|No| E[HR Manager Review]
+
+    D -->|Approve| E
+    D -->|Reject| F[Rejected]
+
+    E -->|Approve| G[Approved]
+    E -->|Reject| F
+```
+
+The workflow architecture is intended to support future configuration and additional approval scenarios.
+
+---
+
+## Technology Stack
 
 ### Frontend
 
-- React
-- TypeScript
-- Tailwind CSS
-- Vite
+| Technology | Purpose |
+|---|---|
+| React | Web user interface |
+| TypeScript | Type-safe frontend development |
+| Vite | Frontend build and development tooling |
+| Tailwind CSS | UI styling |
 
 ### Backend
 
-- Python
-- FastAPI
-- SQLAlchemy
-- Pydantic
+| Technology | Purpose |
+|---|---|
+| Python | Backend programming language |
+| FastAPI | REST API framework |
+| Pydantic | Request and response validation |
+| SQLAlchemy | ORM and database access |
 
-### Database
+### Data
 
-- PostgreSQL
-
-### Authentication
-
-Planned:
-
-- Password hashing
-- JWT authentication
-- Role-based access control
+| Technology | Purpose |
+|---|---|
+| PostgreSQL | Primary relational database |
 
 ### Infrastructure
 
-- Docker
-- Docker Compose
-- Nginx
+| Technology | Purpose |
+|---|---|
+| Docker | Application containerization |
+| Docker Compose | Local service orchestration |
+| Nginx | Planned reverse proxy / production web layer |
 
-### Version Control
+### Engineering Tooling
 
-- Git
-- GitHub
-
-### Testing
-
-Planned:
-
-- Pytest
-- FastAPI API tests
-- Frontend component tests
-- Integration tests
-
-### DevOps
-
-Planned:
-
-- GitHub Actions
-- CI/CD
-- Docker-based production deployment
+| Technology | Purpose |
+|---|---|
+| Git | Source control |
+| GitHub | Repository management and collaboration |
+| Pytest | Planned backend automated testing |
+| GitHub Actions | Planned CI/CD |
 
 ---
 
 ## High-Level Architecture
 
-```text
-┌─────────────────────────────────────┐
-│                                     │
-│          React Frontend             │
-│          TypeScript                 │
-│                                     │
-└──────────────────┬──────────────────┘
-                   │
-                   │ HTTP / HTTPS
-                   │ REST / JSON
-                   ▼
-┌─────────────────────────────────────┐
-│                                     │
-│            FastAPI API              │
-│              Python                 │
-│                                     │
-└──────────────────┬──────────────────┘
-                   │
-                   │ SQLAlchemy ORM
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│                                     │
-│            PostgreSQL               │
-│             Database                │
-│                                     │
-└─────────────────────────────────────┘
+```mermaid
+flowchart TB
+
+    USER[Web Browser]
+
+    FE[React + TypeScript Frontend]
+
+    API[FastAPI REST API]
+
+    SERVICE[Business / Service Layer]
+
+    ORM[SQLAlchemy ORM]
+
+    DB[(PostgreSQL)]
+
+    USER --> FE
+    FE -->|HTTPS / JSON| API
+    API --> SERVICE
+    SERVICE --> ORM
+    ORM --> DB
 ```
 
-Future production architecture may include:
+The frontend and backend are intentionally separated through REST APIs.
 
-```text
-Internet
-   │
-   ▼
-Nginx
-   │
-   ├──────────────► React Frontend
-   │
-   └──────────────► FastAPI Backend
-                         │
-                         ▼
-                    PostgreSQL
+This allows each layer to evolve independently while maintaining a defined API contract.
+
+---
+
+## Planned Production Architecture
+
+```mermaid
+flowchart TB
+
+    USER[Client Browser]
+
+    NGINX[Nginx]
+
+    FRONTEND[React Application]
+
+    BACKEND[FastAPI Application]
+
+    DB[(PostgreSQL)]
+
+    USER -->|HTTPS| NGINX
+
+    NGINX --> FRONTEND
+    NGINX -->|/api| BACKEND
+
+    BACKEND --> DB
 ```
 
----
-
-## Planned HRM Modules
-
-### Core System
-
-- Dashboard
-- Authentication
-- User Management
-- Roles
-- Permissions
-- Application settings
-
-### Employee Management
-
-- Employee creation
-- Employee profile
-- Employee update
-- Employee archive / activation
-- Employee search
-- Employee filtering
-- Employee documents
-- Emergency contacts
-- Employment information
-
-### Organization Management
-
-- Departments
-- Job positions
-- Managers
-- Reporting hierarchy
-- Work locations
-
-### Attendance
-
-- Check-in
-- Check-out
-- Daily attendance
-- Working hours
-- Late attendance
-- Attendance history
-- Attendance reports
-
-### Leave Management
-
-- Leave types
-- Leave allocation
-- Leave requests
-- Leave approval
-- Leave rejection
-- Leave balances
-- Leave history
-
-### Payroll
-
-Planned later in the project:
-
-- Salary structure
-- Basic salary
-- Allowances
-- Deductions
-- Payroll processing
-- Payslip generation
-- Payroll history
-
-### Recruitment
-
-- Job vacancies
-- Candidates
-- Applications
-- Recruitment stages
-- Interview tracking
-- Hiring status
-
-### Reporting
-
-- Employee reports
-- Attendance reports
-- Leave reports
-- Payroll reports
-- Dashboard statistics
+Production architecture will be refined in the dedicated architecture and deployment documents.
 
 ---
 
-## Software Development Life Cycle
-
-This project follows the SDLC process.
-
-```text
-Planning
-   │
-   ▼
-Requirements Analysis
-   │
-   ▼
-System Design
-   │
-   ▼
-Development
-   │
-   ▼
-Testing
-   │
-   ▼
-Deployment
-   │
-   ▼
-Maintenance
-```
-
-Each phase will be documented as the project develops.
-
----
-
-## Project Documentation
-
-Project documentation is maintained inside the `docs/` directory.
-
-Planned structure:
-
-```text
-docs/
-│
-├── assets/
-│   └── TechQube-logo.png
-│
-├── BRD.md
-├── FRD.md
-├── SRS.md
-├── Architecture.md
-├── Database.md
-├── API.md
-├── Security.md
-├── User-Stories.md
-├── Sprint-Backlog.md
-├── UI-UX.md
-└── Deployment.md
-```
-
----
-
-## Requirements Documentation
-
-### Business Requirements Document — BRD
-
-The BRD will define:
-
-- Business problem
-- Business objectives
-- Stakeholders
-- Business scope
-- Business processes
-- High-level requirements
-- Business constraints
-- Success criteria
-
----
-
-### Functional Requirements Document — FRD
-
-The FRD will describe:
-
-- Application modules
-- User interactions
-- Workflows
-- Functional behavior
-- Business rules
-- Validation rules
-- Permissions
-- Approval flows
-
----
-
-### Software Requirements Specification — SRS
-
-The SRS will describe:
-
-- Functional requirements
-- Non-functional requirements
-- Performance requirements
-- Security requirements
-- Availability requirements
-- System constraints
-- API behavior
-- Data requirements
-
----
-
-## Agile Development
-
-Development will follow an Agile-inspired iterative approach.
-
-Features will be implemented in small sprints.
-
-Each feature should ideally include:
-
-- User Story
-- Acceptance Criteria
-- Development Tasks
-- Testing Tasks
-- Definition of Done
-
----
-
-## User Story Example
-
-```text
-As an HR Manager,
-I want to create a new employee,
-so that employee information can be managed in the HRM system.
-```
-
-### Acceptance Criteria
-
-```text
-Given I am an authorized HR Manager
-
-When I open the employee creation page
-And enter valid employee information
-And submit the form
-
-Then the employee should be saved
-And the employee should appear in the employee list
-And a success message should be displayed
-```
-
----
-
-## Sprint Roadmap
-
-### Sprint 0 — Project Foundation
-
-Goals:
-
-- Project planning
-- Git repository setup
-- GitHub repository setup
-- Docker environment
-- FastAPI initialization
-- PostgreSQL container
-- Branding
-- README
-- BRD
-- FRD
-- SRS
-- Architecture planning
-- Initial database planning
-- Initial API planning
-
----
-
-### Sprint 1 — Employee Management Backend
-
-Planned tasks:
-
-- Employee database model
-- Employee schema
-- Create employee API
-- List employees API
-- Get employee API
-- Update employee API
-- Delete/archive employee API
-- Input validation
-- API testing
-
----
-
-### Sprint 2 — Authentication
-
-Planned tasks:
-
-- User model
-- Password hashing
-- Login endpoint
-- JWT token generation
-- Authenticated routes
-- Current user endpoint
-- Basic access control
-
----
-
-### Sprint 3 — Organization Management
-
-Planned tasks:
-
-- Department model
-- Job position model
-- Department API
-- Job position API
-- Assign department to employee
-- Assign job position to employee
-
----
-
-### Sprint 4 — Frontend Foundation
-
-Planned tasks:
-
-- React setup
-- TypeScript setup
-- Tailwind CSS setup
-- Application layout
-- Navigation
-- Login page
-- Dashboard layout
-- API client setup
-
----
-
-### Sprint 5 — Employee Frontend
-
-Planned tasks:
-
-- Employee list
-- Employee form
-- Employee details
-- Employee editing
-- Search
-- Filters
-- Pagination
-
----
-
-### Future Sprints
-
-Planned:
-
-- Leave Management
-- Attendance
-- Payroll
-- Recruitment
-- Reporting
-- Role-based permissions
-- Automated testing
-- CI/CD
-- Production deployment
-
----
-
-## Current Project Structure
+## Repository Structure
 
 ```text
 hrm-fullstack/
 │
 ├── backend/
-│   │
 │   ├── app/
 │   │   ├── models/
 │   │   ├── routers/
 │   │   ├── schemas/
 │   │   ├── services/
-│   │   ├── __init__.py
 │   │   ├── database.py
 │   │   └── main.py
 │   │
@@ -547,249 +221,165 @@ hrm-fullstack/
 ├── frontend/
 │
 ├── docs/
-│   └── assets/
-│       └── TechQube-logo.png
+│   ├── assets/
+│   ├── BRD.md
+│   ├── User-Stories.md
+│   └── FRD.md
 │
 ├── docker-compose.yml
 ├── .gitignore
-├── README.md
-└── LICENSE
+└── README.md
 ```
 
-The folder structure will evolve as the project grows.
+The structure will evolve as architecture and implementation progress.
 
 ---
 
-## Backend Structure
+## Project Documentation
 
-The FastAPI backend is planned around separation of responsibilities.
+Requirements and design documentation are maintained separately from implementation code.
 
-```text
-backend/app/
-│
-├── models/
-│   └── Database models
-│
-├── schemas/
-│   └── Request and response schemas
-│
-├── routers/
-│   └── API endpoints
-│
-├── services/
-│   └── Business logic
-│
-├── database.py
-│   └── Database connection
-│
-└── main.py
-    └── FastAPI application entry point
-```
+| Document | Purpose | Status |
+|---|---|---|
+| [BRD](docs/BRD.md) | Business Requirements Document | ✅ Approved v1.0 |
+| [User Stories](docs/User-Stories.md) | Agile product backlog / user requirements | 🟡 Draft |
+| [FRD](docs/FRD.md) | Functional Requirements Document | 🟡 Draft |
+| SRS | Software Requirements Specification | ⏳ Planned |
+| Architecture | System architecture and technical decisions | ⏳ Planned |
+| Database Design | Data model and ERD | ⏳ Planned |
+| API Specification | REST API contract | ⏳ Planned |
+| Security | Authentication, authorization and security design | ⏳ Planned |
+| Traceability Matrix | BR → US → FR → Test traceability | ⏳ Planned |
+| Sprint Backlog | Sprint planning and implementation tasks | ⏳ Planned |
+| Deployment | Deployment and operational procedures | ⏳ Planned |
 
 ---
 
-## REST API Design
+## Requirements Traceability
 
-Planned API structure:
-
-```text
-/api/v1/
-```
-
-Example endpoints:
+Requirements are intended to remain traceable throughout the development lifecycle.
 
 ```text
-GET     /api/v1/employees
-POST    /api/v1/employees
-GET     /api/v1/employees/{id}
-PUT     /api/v1/employees/{id}
-DELETE  /api/v1/employees/{id}
+Business Requirement
+        │
+        ▼
+User Story
+        │
+        ▼
+Functional Requirement
+        │
+        ▼
+Technical Design
+        │
+        ▼
+Implementation
+        │
+        ▼
+Test Case
 ```
 
-Additional resources will follow a similar REST structure.
+Example:
+
+```text
+BR-002
+Employee Management
+        ↓
+US-EMP-001
+Create Employee
+        ↓
+FR-EMP-001
+Employee Creation
+        ↓
+API + Database + UI
+        ↓
+Test Cases
+```
+
+A formal traceability matrix will be maintained as implementation progresses.
 
 ---
 
-## Database
+## Development Methodology
 
-PostgreSQL will be used as the main relational database.
+The project follows an **Agile iterative development model within a structured SDLC**.
 
-Main planned entities include:
+The overall lifecycle is:
 
-```text
-Users
-Employees
-Departments
-Job Positions
-Attendance
-Leave Types
-Leave Requests
-Payroll
-Recruitment
+```mermaid
+flowchart LR
+
+    A[Planning]
+    --> B[Requirements]
+    --> C[Design]
+    --> D[Development]
+    --> E[Testing]
+    --> F[Deployment]
+    --> G[Maintenance]
+
+    G --> B
 ```
 
-A complete ERD will be created before implementing major database relationships.
+Features are implemented incrementally through defined backlog items and sprint objectives.
 
 ---
 
-## Docker Development Environment
+## Agile Workflow
 
-The project uses Docker Compose to provide a consistent development environment.
-
-Planned containers:
+Each development item should progress through:
 
 ```text
-hrm_backend
-hrm_db
-hrm_frontend
+Business Requirement
+        ↓
+User Story
+        ↓
+Acceptance Criteria
+        ↓
+Refinement
+        ↓
+Sprint Planning
+        ↓
+Development
+        ↓
+Testing
+        ↓
+Code Review
+        ↓
+Merge
 ```
 
-Future production architecture may also include:
-
-```text
-nginx
-```
-
----
-
-## Running the Project
-
-### Clone
-
-```bash
-git clone git@github.com:codesWithRifat/hrm-fullstack.git
-```
-
-### Enter the project
-
-```bash
-cd hrm-fullstack
-```
-
-### Environment configuration
-
-Create an environment file:
-
-```bash
-cp .env.example .env
-```
-
-Update the values as required.
-
-### Build and start
-
-```bash
-docker compose up -d --build
-```
-
-### Check containers
-
-```bash
-docker compose ps
-```
-
-### Backend
-
-```text
-http://localhost:8040
-```
-
-### FastAPI Swagger Documentation
-
-```text
-http://localhost:8040/docs
-```
-
-### FastAPI ReDoc
-
-```text
-http://localhost:8040/redoc
-```
-
----
-
-## Useful Docker Commands
-
-View backend logs:
-
-```bash
-docker compose logs -f backend
-```
-
-View database logs:
-
-```bash
-docker compose logs -f db
-```
-
-Restart backend:
-
-```bash
-docker compose restart backend
-```
-
-Enter backend container:
-
-```bash
-docker exec -it hrm_backend bash
-```
-
-Enter PostgreSQL:
-
-```bash
-docker exec -it hrm_db psql -U hrm -d hrm
-```
-
-Stop containers:
-
-```bash
-docker compose down
-```
-
-Start containers:
-
-```bash
-docker compose up -d
-```
-
-Rebuild:
-
-```bash
-docker compose up -d --build
-```
+A feature should meet the project's **Definition of Done** before it is considered complete.
 
 ---
 
 ## Git Workflow
 
-The project uses Git for version control.
-
-### Recommended Branches
+Development will follow a branch-based workflow.
 
 ```text
 main
-│
-└── develop
-    │
-    ├── feature/employee-management
-    ├── feature/authentication
-    ├── feature/departments
-    ├── feature/attendance
-    ├── feature/leave-management
-    └── feature/payroll
+ │
+ └── develop
+      │
+      ├── feature/authentication
+      ├── feature/employee-management
+      ├── feature/organization
+      ├── feature/attendance
+      ├── feature/leave-management
+      ├── feature/payroll
+      └── feature/reporting
 ```
 
-### Main
+### `main`
 
-Stable application code.
+Represents stable project baselines.
 
-### Develop
+### `develop`
 
-Integration branch for development work.
+Integration branch for completed development work.
 
-### Feature Branches
+### `feature/*`
 
-Used for individual features.
+Used for isolated feature development.
 
 Example:
 
@@ -797,215 +387,393 @@ Example:
 git checkout -b feature/employee-management
 ```
 
-After development:
+After implementation:
 
 ```bash
 git add .
-git commit -m "Add employee management API"
+git commit -m "feat: add employee management API"
 git push -u origin feature/employee-management
 ```
 
-The feature should eventually be merged through a Pull Request.
+Changes should be reviewed before merging into the integration branch.
 
 ---
 
-## Commit Style
+## Commit Convention
 
-Commits should describe meaningful changes.
+The project uses descriptive commit prefixes.
+
+```text
+feat:      new application functionality
+fix:       bug correction
+docs:      documentation change
+test:      test additions or updates
+refactor:  internal code restructuring
+chore:     tooling or maintenance work
+ci:        CI/CD configuration
+build:     build or dependency changes
+```
 
 Examples:
 
 ```text
-docs: add business requirements document
+docs: finalize business requirements v1.0
 feat: add employee creation endpoint
-feat: add employee database model
-fix: validate duplicate employee email
-test: add employee API tests
+fix: prevent duplicate employee identifiers
+test: add employee API validation tests
 refactor: move employee logic to service layer
 chore: update Docker configuration
 ```
 
 ---
 
+## Development Environment
+
+The project currently uses Docker Compose for backend and database services.
+
+### Clone
+
+```bash
+git clone git@github.com:codesWithRifat/hrm-fullstack.git
+```
+
+```bash
+cd hrm-fullstack
+```
+
+### Build Services
+
+```bash
+docker compose up -d --build
+```
+
+### Check Services
+
+```bash
+docker compose ps
+```
+
+### Backend API
+
+```text
+http://localhost:8040
+```
+
+### Swagger / OpenAPI UI
+
+```text
+http://localhost:8040/docs
+```
+
+### ReDoc
+
+```text
+http://localhost:8040/redoc
+```
+
+---
+
+## Development Commands
+
+### Backend logs
+
+```bash
+docker compose logs -f backend
+```
+
+### PostgreSQL logs
+
+```bash
+docker compose logs -f db
+```
+
+### Restart backend
+
+```bash
+docker compose restart backend
+```
+
+### Enter backend container
+
+```bash
+docker exec -it hrm_backend bash
+```
+
+### Enter PostgreSQL
+
+```bash
+docker exec -it hrm_db psql -U hrm -d hrm
+```
+
+### Stop environment
+
+```bash
+docker compose down
+```
+
+### Start environment
+
+```bash
+docker compose up -d
+```
+
+### Rebuild
+
+```bash
+docker compose up -d --build
+```
+
+---
+
+## API Design Direction
+
+The backend will expose versioned REST APIs.
+
+Base convention:
+
+```text
+/api/v1
+```
+
+Planned resource groups include:
+
+```text
+/api/v1/auth
+/api/v1/companies
+/api/v1/users
+/api/v1/employees
+/api/v1/departments
+/api/v1/job-positions
+/api/v1/attendance
+/api/v1/leave-types
+/api/v1/leave-requests
+/api/v1/payroll
+/api/v1/recruitment
+/api/v1/reports
+```
+
+The full request/response contract will be maintained in the API specification.
+
+---
+
+## Reporting Strategy
+
+Reporting will be implemented in three layers:
+
+```text
+Dashboard / KPI
+      ↓
+Interactive Report
+      ↓
+Printable / Downloadable PDF
+```
+
+Examples include:
+
+- Employee headcount
+- Attendance summary
+- Leave utilization
+- Payroll summary
+- Department workforce
+- Recruitment pipeline
+
+Reports must respect the same company and user authorization rules as normal application records.
+
+---
+
+## Payroll Design Direction
+
+Payroll will be based on **configurable salary rules** rather than fixed salary fields.
+
+Conceptually:
+
+```text
+Salary Structure
+│
+├── Basic Salary
+├── House Rent
+├── Medical Allowance
+├── Overtime
+├── Bonus
+├── Tax
+├── Provident Fund
+├── Other Deductions
+└── Custom Rules
+```
+
+Authorized payroll users will be able to configure applicable rules without requiring source-code modifications for every new salary component.
+
+Detailed calculation design will be finalized during payroll architecture and database design.
+
+---
+
+## Security Principles
+
+The application will follow several core security principles:
+
+- Backend-enforced authorization
+- Role-based permissions
+- Company-level data restrictions
+- Secure password hashing
+- Protected API endpoints
+- Input validation
+- Least-privilege access
+- Restricted payroll data
+- Restricted sensitive employee data
+- Auditability of important business actions
+- Secrets excluded from source control
+
+Detailed security requirements will be maintained separately.
+
+---
+
 ## Testing Strategy
 
-Testing will be added progressively.
+Testing will be introduced progressively.
 
-### Backend Testing
-
-Planned:
+### Backend
 
 - Unit tests
 - API tests
 - Validation tests
-- Authentication tests
-- Permission tests
+- Authorization tests
+- Business-rule tests
 
-### Frontend Testing
-
-Planned:
+### Frontend
 
 - Component tests
-- Form validation tests
-- API integration tests
+- Form validation
+- User interaction tests
 
-### Integration Testing
+### Integration
 
-Planned:
+- Frontend ↔ API
+- API ↔ Database
+- Authentication workflows
+- Approval workflows
+- Payroll calculations
 
-- Frontend → API
-- API → Database
-- Authentication flow
-- Business workflows
-
----
-
-## Security Goals
-
-Planned security practices include:
-
-- Password hashing
-- JWT authentication
-- Protected routes
-- Role-based permissions
-- Input validation
-- Environment variables for secrets
-- No credentials committed to Git
-- CORS configuration
-- Database access restrictions
-- HTTPS in production
-
----
-
-## CI/CD
-
-GitHub Actions will eventually be used for:
-
-```text
-Push / Pull Request
-        │
-        ▼
-Linting
-        │
-        ▼
-Automated Tests
-        │
-        ▼
-Docker Build
-        │
-        ▼
-Deployment
-```
-
-CI/CD will be implemented after the application reaches sufficient maturity.
+Critical workflows should be covered by automated tests before production deployment.
 
 ---
 
 ## Definition of Done
 
-A feature should not be considered complete simply because the code works.
+A feature is considered complete when applicable requirements are satisfied:
 
-A feature is considered done when appropriate criteria are satisfied:
-
-- Requirement documented
-- User story defined
-- Acceptance criteria satisfied
-- Code implemented
+- User story refined
+- Acceptance criteria met
+- Backend implementation complete
+- Frontend implementation complete
 - Validation implemented
-- Tests written
-- Tests passing
-- Code reviewed
+- Authorization implemented
+- Automated tests passing
+- Integration verified
 - Documentation updated
-- Git history clean
-- Feature merged
+- Code reviewed
+- No unresolved critical defects
+- Changes merged through the agreed Git workflow
 
 ---
 
-## Project Status
+## Current Status
 
-🚧 **Under Active Development**
+**Phase:** Requirements & Design  
+**Current Sprint:** Sprint 0 — Project Foundation
 
-Current Phase:
-
-**Sprint 0 — Planning and Foundation**
-
-Current progress:
-
-- [x] Project repository created
-- [x] Git initialized
-- [x] GitHub remote configured
-- [x] Docker environment created
-- [x] PostgreSQL container created
-- [x] FastAPI backend initialized
-- [x] Basic API endpoint created
-- [x] TechQube branding created
-- [x] Project README created
-- [ ] `.env.example`
-- [ ] BRD
-- [ ] User stories
-- [ ] FRD
-- [ ] SRS
-- [ ] System architecture
-- [ ] Database ERD
-- [ ] API standards
-- [ ] Sprint 1 backlog
-- [ ] Employee CRUD backend
-- [ ] Authentication
-- [ ] React frontend
+| Item | Status |
+|---|---|
+| Repository setup | ✅ Complete |
+| Git / GitHub setup | ✅ Complete |
+| Docker foundation | ✅ Complete |
+| PostgreSQL development service | ✅ Complete |
+| FastAPI foundation | ✅ Complete |
+| TechQube branding | ✅ Complete |
+| Project README | ✅ Complete |
+| Business Requirements (BRD) | ✅ Approved v1.0 |
+| User Story Catalog | 🟡 Draft |
+| Functional Requirements (FRD) | 🟡 Draft |
+| Documentation normalization | 🔄 In Progress |
+| SRS | ⏳ Planned |
+| Architecture Design | ⏳ Planned |
+| Database ERD | ⏳ Planned |
+| API Specification | ⏳ Planned |
+| Sprint 1 Development | ⏳ Planned |
 
 ---
 
-## Roadmap
+## Delivery Roadmap
 
-```text
-Planning
-   ↓
-Requirements
-   ↓
-Architecture
-   ↓
-Database Design
-   ↓
-Backend API
-   ↓
-Authentication
-   ↓
-Frontend
-   ↓
-Integration
-   ↓
-Testing
-   ↓
-CI/CD
-   ↓
-Production Deployment
+```mermaid
+flowchart LR
+
+    S0[Sprint 0<br/>Requirements & Architecture]
+
+    S1[Sprint 1<br/>Employee Backend]
+
+    S2[Sprint 2<br/>Authentication]
+
+    S3[Sprint 3<br/>Organization]
+
+    S4[Sprint 4<br/>Frontend Foundation]
+
+    S5[Sprint 5<br/>Employee Frontend]
+
+    FUTURE[Attendance · Leave · Payroll<br/>Recruitment · Reporting · CI/CD]
+
+    S0 --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S4 --> S5
+    S5 --> FUTURE
 ```
 
+The roadmap may be adjusted through backlog refinement as architecture and requirements mature.
+
 ---
 
-## Branding
+## Engineering Principles
 
-### Company
+The project prioritizes:
 
-**TechQube**
+- Clear requirements
+- Separation of concerns
+- Maintainability
+- Explicit business logic
+- Secure defaults
+- Database integrity
+- API consistency
+- Testability
+- Traceability
+- Incremental delivery
+- Documentation aligned with implementation
 
-### Product
+Complexity should be introduced only when justified by requirements.
 
-**TechQube HRM**
+---
 
-### Current Domain
+## Project Purpose
 
-`erpedge.xyz`
+TechQube HRM is being developed both as a functional HR platform and as an end-to-end software engineering implementation covering the complete delivery lifecycle.
 
-The domain is currently being used for development and demonstration purposes and may change later.
+The project deliberately includes requirements engineering, architecture, application development, testing, DevOps and deployment practices so that engineering decisions can be understood and implemented rather than hidden behind generated application code.
 
-### Brand Colors
+---
+
+## Brand
+
+**Organization:** TechQube  
+**Product:** TechQube HRM  
+**Current Development Domain:** `erpedge.xyz`
+
+### Brand Palette
 
 | Purpose | Color |
 |---|---|
-| Primary Blue | `#2563EB` |
+| Primary | `#2563EB` |
 | Dark Navy | `#0F172A` |
-| Accent Teal | `#14B8A6` |
+| Accent | `#14B8A6` |
 | Background | `#F8FAFC` |
 | Success | `#22C55E` |
 | Warning | `#F59E0B` |
@@ -1013,49 +781,18 @@ The domain is currently being used for development and demonstration purposes an
 
 ---
 
-## Project Principles
+## Maintainer
 
-The project will prioritize:
+**Rifat**
 
-- Readability
-- Maintainability
-- Separation of concerns
-- Reusable code
-- Clear naming
-- Secure defaults
-- Consistent API design
-- Database integrity
-- Proper documentation
-- Incremental development
-
-Premature complexity will be avoided.
-
-The architecture will evolve based on actual project requirements.
-
----
-
-## Disclaimer
-
-This project is currently a learning and portfolio project.
-
-Features, architecture, requirements, and implementation details may change as the project evolves and new concepts are learned.
-
----
-
-## Author
-
-Developed as part of the **TechQube** software engineering learning initiative.
+Project Owner / Developer
 
 ---
 
 <p align="center">
-  <strong>TechQube</strong>
+  <strong>TechQube HRM</strong>
 </p>
 
 <p align="center">
-  Business Software Built for Growth
-</p>
-
-<p align="center">
-  <sub>Built step by step — from requirements to production.</sub>
+  Modern HR operations. Structured engineering.
 </p>
