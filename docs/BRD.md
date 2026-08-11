@@ -6,7 +6,7 @@ Project Name: TechQube HRM
 Company: TechQube  
 Document Type: Business Requirements Document  
 Version: 1.0  
-Status: Draft  
+Status: Approved  
 
 ---
 
@@ -424,6 +424,6 @@ Possible future enhancements include:
 
 ## 15. Approval Status
 
-Current Status: Draft
+Current Status: Approved
 
 This BRD will evolve as project requirements become clearer.
